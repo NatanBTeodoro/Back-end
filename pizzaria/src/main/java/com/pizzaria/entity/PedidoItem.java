@@ -34,7 +34,7 @@ public class PedidoItem {
     private Tipo tipo; // PIZZA ou BEBIDA
 
     @Column(name = "item_id", nullable = false)
-    private Long itemId; // id da Pizza ou da Bebida conforme o tipo
+    private Long itemId; // id da Pizza ou da Bebida conforme o tipo  rever...
 
     @Column(nullable = false)
     private Integer quantidade;

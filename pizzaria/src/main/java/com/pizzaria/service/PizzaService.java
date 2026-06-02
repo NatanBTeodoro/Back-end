@@ -33,6 +33,25 @@ public class PizzaService {
     }
 
     @Transactional
+    public PizzaDTO atualizar(Long id, PizzaDTO dto) {
+        Pizza existente = repository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Pizza não encontrada com id: " + id));
+        existente.setNome(dto.getNome());
+        existente.setValor(dto.getValor());
+        existente.setDescricao(dto.getDescricao());
+        existente.setAtivo(dto.getAtivo());
+        return PizzaMapper.toDTO(repository.save(existente));
+    }
+
+    @Transactional
+    public void deletar(Long id) {
+        if (!repository.existsById(id)) {
+            throw new NoSuchElementException("Pizza não encontrada com id: " + id);
+        }
+        repository.deleteById(id);
+    }
+
+    @Transactional
     public PizzaDTO criar(PizzaDTO dto) {
 
         Pizza salvo = repository.save(PizzaMapper.toEntity(dto));

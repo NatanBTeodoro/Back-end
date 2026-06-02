@@ -9,6 +9,7 @@ import com.pizzaria.entity.Bebida;
 
 @Repository
 public interface BebidaRepository extends JpaRepository<Bebida, Long> {
+    
     boolean existsByNome(String nome);
 
     List<Bebida> findByAtivo(Boolean ativo);
