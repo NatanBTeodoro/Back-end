@@ -8,17 +8,14 @@ import com.pizzaria.entity.Pizza;
 
 public class PizzaMapper {
     public static PizzaDTO toDTO(Pizza entity) {
-
         if (entity == null) {
             return null;
         }
         return new PizzaDTO(entity.getId(), entity.getNome(), entity.getDescricao(), entity.getValor(),
-                entity.getAtivo());
-
+                entity.getAtivo(), entity.getImagem());
     }
 
     public static Pizza toEntity(PizzaDTO dto) {
-
         if (dto == null) {
             return null;
         }
@@ -28,6 +25,7 @@ public class PizzaMapper {
         p.setValor(dto.getValor());
         p.setDescricao(dto.getDescricao());
         p.setAtivo(dto.getAtivo());
+        p.setImagem(dto.getImagem());
         return p;
     }
 
@@ -35,13 +33,11 @@ public class PizzaMapper {
         return list == null
                 ? List.of()
                 : list.stream().map(PizzaMapper::toDTO).collect(Collectors.toList());
-
     }
 
     public static List<Pizza> toEntityList(List<PizzaDTO> list) {
         return list == null
                 ? List.of()
                 : list.stream().map(PizzaMapper::toEntity).collect(Collectors.toList());
-
     }
 }

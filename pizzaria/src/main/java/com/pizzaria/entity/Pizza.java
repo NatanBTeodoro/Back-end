@@ -29,6 +29,9 @@ public class Pizza {
     @Column(nullable = false)
     private Boolean ativo = true;
 
+    @Column(columnDefinition = "LONGTEXT")
+    private String imagem;
+
     public Pizza() {
     }
 
@@ -70,6 +73,14 @@ public class Pizza {
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 
 }

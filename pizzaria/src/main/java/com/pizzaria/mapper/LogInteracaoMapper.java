@@ -12,33 +12,13 @@ public class LogInteracaoMapper {
         if (entity == null) {
             return null;
         }
-        return new LogInteracaoDTO(entity.getId(), entity.getCliente(),
-                entity.getCampoAlterado());
-    }
-
-    public static LogAlteracao toEntity(LogInteracaoDTO dto) {
-
-        if (dto == null) {
-            return null;
-        }
-        LogAlteracao l = new LogAlteracao();
-        l.setId(dto.getId());
-        l.setCliente(dto.getCliente());
-        l.setCampoAlterado(dto.getCampoAlterado());
-        return l;
+        return new LogInteracaoDTO(entity.getId(), entity.getCampoAlterado(), entity.getDataHora());
     }
 
     public static List<LogInteracaoDTO> toDTOList(List<LogAlteracao> list) {
         return list == null
                 ? List.of()
                 : list.stream().map(LogInteracaoMapper::toDTO).collect(Collectors.toList());
-
-    }
-
-    public static List<LogAlteracao> toEntityList(List<LogInteracaoDTO> list) {
-        return list == null
-                ? List.of()
-                : list.stream().map(LogInteracaoMapper::toEntity).collect(Collectors.toList());
 
     }
 }

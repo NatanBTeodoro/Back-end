@@ -1,24 +1,19 @@
 package com.pizzaria.dto;
 
-import com.pizzaria.entity.Endereco.Rotulo;
-
 public class EnderecoDTO {
 
     private Long id;
+    private Long clienteId;
     private String cep;
-    private Rotulo rotulo;
+    private String cidade;
+    private String bairro;
+    private String rua;
+    private String numero;
+    private String rotulo;
     private String nomePersonalizado;
     private Boolean principal;
 
     public EnderecoDTO() {
-    }
-
-    public EnderecoDTO(Long id, String cep, Rotulo rotulo, String nomePersonalizado, Boolean principal) {
-        this.id = id;
-        this.cep = cep;
-        this.rotulo = rotulo;
-        this.nomePersonalizado = nomePersonalizado;
-        this.principal = principal;
     }
 
     public Long getId() {
@@ -29,6 +24,14 @@ public class EnderecoDTO {
         this.id = id;
     }
 
+    public Long getClienteId() {
+        return clienteId;
+    }
+
+    public void setClienteId(Long clienteId) {
+        this.clienteId = clienteId;
+    }
+
     public String getCep() {
         return cep;
     }
@@ -37,11 +40,43 @@ public class EnderecoDTO {
         this.cep = cep;
     }
 
-    public Rotulo getRotulo() {
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getRua() {
+        return rua;
+    }
+
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getRotulo() {
         return rotulo;
     }
 
-    public void setRotulo(Rotulo rotulo) {
+    public void setRotulo(String rotulo) {
         this.rotulo = rotulo;
     }
 
@@ -60,5 +95,4 @@ public class EnderecoDTO {
     public void setPrincipal(Boolean principal) {
         this.principal = principal;
     }
-
 }

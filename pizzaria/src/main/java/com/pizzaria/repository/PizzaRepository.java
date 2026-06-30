@@ -11,6 +11,9 @@ public interface PizzaRepository extends JpaRepository<Pizza, Long> {
 
 
     boolean existsByNome(String nome);
+
+    boolean existsByNomeAndIdNot(String nome, Long id);
+
     List<Pizza> findByAtivoTrue();
 
 }

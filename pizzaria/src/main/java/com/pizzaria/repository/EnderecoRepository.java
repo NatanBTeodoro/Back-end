@@ -11,9 +11,11 @@ import com.pizzaria.entity.Endereco;
 @Repository
 public interface EnderecoRepository extends JpaRepository<Endereco, Long> {
 
-    List<Endereco> findByClienteId(Long clienteId);
+    List<Endereco> findByClienteIdOrderByPrincipalDescIdAsc(Long clienteId);
 
-    Optional<Endereco> findByClienteIdAndPrincipalTrue(Long clienteId);
+    long countByClienteId(Long clienteId);
 
-    int countByClienteId(Long clienteId);
+    Optional<Endereco> findByIdAndClienteId(Long id, Long clienteId);
+
+    Optional<Endereco> findFirstByClienteIdAndPrincipalTrue(Long clienteId);
 }

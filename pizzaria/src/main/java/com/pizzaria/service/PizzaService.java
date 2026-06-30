@@ -1,5 +1,6 @@
 package com.pizzaria.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -14,6 +15,8 @@ import com.pizzaria.repository.PizzaRepository;
 
 @Service
 public class PizzaService {
+
+    private static final String IMAGEM_PADRAO = "base";
 
     @Autowired
     private PizzaRepository repository;
@@ -36,10 +39,21 @@ public class PizzaService {
     public PizzaDTO atualizar(Long id, PizzaDTO dto) {
         Pizza existente = repository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Pizza não encontrada com id: " + id));
-        existente.setNome(dto.getNome());
+
+        validarCadastro(dto);
+        validarNomeUnico(dto.getNome(), id);
+
+        existente.setNome(dto.getNome().trim());
         existente.setValor(dto.getValor());
-        existente.setDescricao(dto.getDescricao());
-        existente.setAtivo(dto.getAtivo());
+        existente.setDescricao(dto.getDescricao() != null && !dto.getDescricao().isBlank()
+                ? dto.getDescricao().trim()
+                : "Sem descrição");
+        if (dto.getAtivo() != null) {
+            existente.setAtivo(dto.getAtivo());
+        }
+        if (dto.getImagem() != null && !dto.getImagem().isBlank()) {
+            existente.setImagem(resolverImagem(dto.getImagem()));
+        }
         return PizzaMapper.toDTO(repository.save(existente));
     }
 
@@ -53,9 +67,46 @@ public class PizzaService {
 
     @Transactional
     public PizzaDTO criar(PizzaDTO dto) {
-
-        Pizza salvo = repository.save(PizzaMapper.toEntity(dto));
+        validarCadastro(dto);
+        validarNomeUnico(dto.getNome(), null);
+        Pizza pizza = PizzaMapper.toEntity(dto);
+        pizza.setNome(dto.getNome().trim());
+        pizza.setDescricao(dto.getDescricao() != null && !dto.getDescricao().isBlank()
+                ? dto.getDescricao().trim()
+                : "Sem descrição");
+        pizza.setImagem(resolverImagem(dto.getImagem()));
+        Pizza salvo = repository.save(pizza);
         return PizzaMapper.toDTO(salvo);
+    }
+
+    private String resolverImagem(String imagem) {
+        if (imagem == null || imagem.isBlank()) {
+            return IMAGEM_PADRAO;
+        }
+        String valor = imagem.trim();
+        if (valor.startsWith("data:image/")) {
+            return valor;
+        }
+        return valor;
+    }
+
+    private void validarCadastro(PizzaDTO dto) {
+        if (dto.getNome() == null || dto.getNome().isBlank()) {
+            throw new IllegalArgumentException("Nome obrigatório.");
+        }
+        if (dto.getValor() == null || dto.getValor().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Valor obrigatório.");
+        }
+    }
+
+    private void validarNomeUnico(String nome, Long idIgnorado) {
+        String nomeTrim = nome.trim();
+        boolean duplicado = idIgnorado == null
+                ? repository.existsByNome(nomeTrim)
+                : repository.existsByNomeAndIdNot(nomeTrim, idIgnorado);
+        if (duplicado) {
+            throw new IllegalArgumentException("Já existe uma pizza com este nome.");
+        }
     }
 
 }

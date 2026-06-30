@@ -9,16 +9,18 @@ public class PizzaDTO {
     private String descricao;
     private BigDecimal valor;
     private Boolean ativo;
+    private String imagem;
 
     public PizzaDTO() {
     }
 
-    public PizzaDTO(Long id, String nome, String descricao, BigDecimal valor, Boolean ativo) {
+    public PizzaDTO(Long id, String nome, String descricao, BigDecimal valor, Boolean ativo, String imagem) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.valor = valor;
         this.ativo = ativo;
+        this.imagem = imagem;
     }
 
     public Long getId() {
@@ -59,6 +61,14 @@ public class PizzaDTO {
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 
 }

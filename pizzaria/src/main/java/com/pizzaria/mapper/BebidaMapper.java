@@ -2,6 +2,7 @@ package com.pizzaria.mapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 import com.pizzaria.dto.BebidaDTO;
 import com.pizzaria.entity.Bebida;
 
@@ -11,11 +12,10 @@ public class BebidaMapper {
             return null;
         }
         return new BebidaDTO(entity.getId(), entity.getNome(),
-                entity.getValor(), entity.getAtivo());
+                entity.getValor(), entity.getAtivo(), entity.getImagem());
     }
 
     public static Bebida toEntity(BebidaDTO dto) {
-
         if (dto == null) {
             return null;
         }
@@ -24,6 +24,7 @@ public class BebidaMapper {
         b.setNome(dto.getNome());
         b.setValor(dto.getValor());
         b.setAtivo(dto.getAtivo());
+        b.setImagem(dto.getImagem());
         return b;
     }
 
@@ -31,14 +32,11 @@ public class BebidaMapper {
         return list == null
                 ? List.of()
                 : list.stream().map(BebidaMapper::toDTO).collect(Collectors.toList());
-
     }
 
     public static List<Bebida> toEntityList(List<BebidaDTO> list) {
         return list == null
                 ? List.of()
                 : list.stream().map(BebidaMapper::toEntity).collect(Collectors.toList());
-
     }
-
 }

@@ -2,6 +2,8 @@ package com.pizzaria.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,6 +19,14 @@ import java.time.LocalDateTime;
 @Table(name = "pedido")
 public class Pedido {
 
+    public enum Status {
+        PENDENTE, EM_PREPARO, A_CAMINHO, ENTREGUE, NAO_RECEBIDO
+    }
+
+    public enum ConfirmacaoRecebimento {
+        AGUARDANDO, RECEBIDO, NAO_RECEBIDO
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,6 +41,17 @@ public class Pedido {
     @CreationTimestamp
     @Column(name = "data_hora", nullable = false, updatable = false)
     private LocalDateTime dataHora;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private Status status = Status.PENDENTE;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "confirmacao_recebimento", nullable = false, length = 20)
+    private ConfirmacaoRecebimento confirmacaoRecebimento = ConfirmacaoRecebimento.AGUARDANDO;
+
+    @Column(columnDefinition = "TEXT")
+    private String reclamacao;
 
     public Pedido() {
     }
@@ -65,6 +86,30 @@ public class Pedido {
 
     public void setDataHora(LocalDateTime dataHora) {
         this.dataHora = dataHora;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public ConfirmacaoRecebimento getConfirmacaoRecebimento() {
+        return confirmacaoRecebimento;
+    }
+
+    public void setConfirmacaoRecebimento(ConfirmacaoRecebimento confirmacaoRecebimento) {
+        this.confirmacaoRecebimento = confirmacaoRecebimento;
+    }
+
+    public String getReclamacao() {
+        return reclamacao;
+    }
+
+    public void setReclamacao(String reclamacao) {
+        this.reclamacao = reclamacao;
     }
 
 }

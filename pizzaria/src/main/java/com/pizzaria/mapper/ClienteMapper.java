@@ -12,12 +12,18 @@ public class ClienteMapper {
         if (entity == null) {
             return null;
         }
-        return new ClienteDTO(entity.getId(), entity.getNomeCompleto(),
-                entity.getCpf(), entity.getUsuario(), entity.getSenha());
+        return new ClienteDTO(
+                entity.getId(),
+                entity.getNomeCompleto(),
+                entity.getCpf(),
+                entity.getUsuario(),
+                null,
+                entity.getDataCadastro(),
+                entity.getAtivo(),
+                entity.getDataExclusao());
     }
 
     public static Cliente toEntity(ClienteDTO dto) {
-
         if (dto == null) {
             return null;
         }
@@ -27,6 +33,7 @@ public class ClienteMapper {
         c.setNomeCompleto(dto.getNomeCompleto());
         c.setUsuario(dto.getUsuario());
         c.setSenha(dto.getSenha());
+        c.setAtivo(dto.getAtivo() != null ? dto.getAtivo() : true);
         return c;
     }
 
@@ -34,13 +41,11 @@ public class ClienteMapper {
         return list == null
                 ? List.of()
                 : list.stream().map(ClienteMapper::toDTO).collect(Collectors.toList());
-
     }
 
     public static List<Cliente> toEntityList(List<ClienteDTO> list) {
         return list == null
                 ? List.of()
                 : list.stream().map(ClienteMapper::toEntity).collect(Collectors.toList());
-
     }
 }

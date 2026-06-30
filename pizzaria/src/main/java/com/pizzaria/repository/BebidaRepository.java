@@ -12,5 +12,7 @@ public interface BebidaRepository extends JpaRepository<Bebida, Long> {
     
     boolean existsByNome(String nome);
 
+    boolean existsByNomeAndIdNot(String nome, Long id);
+
     List<Bebida> findByAtivo(Boolean ativo);
 }
