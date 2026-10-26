@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pizzaria.dto.DashboardDTO;
+
 import com.pizzaria.dto.PedidoConfirmacaoDTO;
 import com.pizzaria.dto.PedidoCriarDTO;
 import com.pizzaria.dto.PedidoCriarDTO.ItemCriarDTO;

@@ -26,7 +26,7 @@ public class Bebida {
     @Column(nullable = false)
     private Boolean ativo = true;
 
-    @Column(columnDefinition = "LONGTEXT")
+    @Column(columnDefinition = "TEXT")
     private String imagem;
 
     public Bebida() {
